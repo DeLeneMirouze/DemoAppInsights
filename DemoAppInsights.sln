@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAppInsights", "DemoAppInsights\DemoAppInsights.csproj", "{C938F530-F4EB-4A5A-AA73-F665651F5856}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiNoInsights", "ApiNoInsights\ApiNoInsights.csproj", "{3D2A45C8-E87B-4F35-B96B-DAC2B5BB1548}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiInsights", "ApiInsights\ApiInsights.csproj", "{ECB8A872-FE28-4C1C-8329-FD713B03F94F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C938F530-F4EB-4A5A-AA73-F665651F5856}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C938F530-F4EB-4A5A-AA73-F665651F5856}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C938F530-F4EB-4A5A-AA73-F665651F5856}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D2A45C8-E87B-4F35-B96B-DAC2B5BB1548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D2A45C8-E87B-4F35-B96B-DAC2B5BB1548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D2A45C8-E87B-4F35-B96B-DAC2B5BB1548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D2A45C8-E87B-4F35-B96B-DAC2B5BB1548}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECB8A872-FE28-4C1C-8329-FD713B03F94F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB8A872-FE28-4C1C-8329-FD713B03F94F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB8A872-FE28-4C1C-8329-FD713B03F94F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB8A872-FE28-4C1C-8329-FD713B03F94F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

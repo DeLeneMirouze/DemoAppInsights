@@ -1,36 +1,89 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DemoAppInsights.Models;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Queue;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Microsoft.Extensions.Options;
 
 namespace DemoAppInsights.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AppSettings _mySettings;
+
+        public HomeController(IOptions<AppSettings> settings)
+        {
+            _mySettings = settings.Value;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        /// <summary>
+        /// Simulation d'une erreur
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult ErrorNotFound()
         {
-            ViewData["Message"] = "Your application description page.";
+            return NotFound();
+        }
+
+        /// <summary>
+        /// Ecriture dans une queue
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> Queue()
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_mySettings.Queue);
+            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+            CloudQueue queue = queueClient.GetQueueReference("servicequeue");
+            await queue.CreateIfNotExistsAsync();
+            CloudQueueMessage message = new CloudQueueMessage("Hello, World");
+            await queue.AddMessageAsync(message);
+
+            ViewData["Message"] = "Un message a été ajouté à la queue";
+            return View();
+        }
+
+        /// <summary>
+        /// Appel d'une api monitorée par Application Insights
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> WebApi()
+        {
+            string reponse = null;
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(_mySettings.apiInsightsUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                reponse = await response.Content.ReadAsStringAsync();
+            }
+
+            ViewData["Message"] = $"Message: {reponse}";
 
             return View();
         }
 
-        public IActionResult Contact()
+        /// <summary>
+        /// Appel d'une api NON monitorée par Application Insights
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> WebApi2()
         {
-            ViewData["Message"] = "Your contact page.";
+            string reponse = null;
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(_mySettings.apiNoInsightsUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                reponse = await response.Content.ReadAsStringAsync();
+            }
 
-            return View();
-        }
+            ViewData["Message"] = $"Message: {reponse}";
 
-        public IActionResult Privacy()
-        {
             return View();
         }
 
