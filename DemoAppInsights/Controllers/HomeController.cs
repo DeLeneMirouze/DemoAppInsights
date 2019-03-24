@@ -6,6 +6,10 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Microsoft.Extensions.Options;
+using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.KeyVault.Models;
+using System;
 
 namespace DemoAppInsights.Controllers
 {
@@ -38,11 +42,23 @@ namespace DemoAppInsights.Controllers
         /// <returns></returns>
         public async Task<IActionResult> Queue()
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_mySettings.Queue);
+            // constuction de la chaîne de connexion vers la Queue
+            AzureServiceTokenProvider azureServiceTokenProvider =
+            new AzureServiceTokenProvider();
+            KeyVaultClient keyVaultClient =
+               new KeyVaultClient(
+                  new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
+            );
+            string identifier = _mySettings.UrlAkv + "secrets/queueKey";
+            SecretBundle secret = await keyVaultClient.GetSecretAsync(identifier);
+            string cnx = string.Format(_mySettings.Queue, secret.Value);
+
+            // inscription dans la queue d'un message
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(cnx);
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
             CloudQueue queue = queueClient.GetQueueReference("servicequeue");
             await queue.CreateIfNotExistsAsync();
-            CloudQueueMessage message = new CloudQueueMessage("Hello, World");
+            CloudQueueMessage message = new CloudQueueMessage("Hello, World, it's " + DateTime.Now);
             await queue.AddMessageAsync(message);
 
             ViewData["Message"] = "Un message a été ajouté à la queue";
