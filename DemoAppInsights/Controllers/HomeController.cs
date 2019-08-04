@@ -10,6 +10,7 @@ using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
 using System;
+using System.Threading;
 
 namespace DemoAppInsights.Controllers
 {
@@ -24,6 +25,7 @@ namespace DemoAppInsights.Controllers
 
         public IActionResult Index()
         {
+            //Thread.Sleep(2000);
             return View();
         }
 

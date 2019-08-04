@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <ApplicationInsightsResourceId>/subscriptions/e3d8eec3-a123-46c3-ae66-42b9cff0d16d/resourcegroups/demoAppInsights/providers/microsoft.insights/components/demoAI</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/e3d8eec3-a123-46c3-ae66-42b9cff0d16d/resourcegroups/demoAppInsights/providers/microsoft.insights/components/demoAI</ApplicationInsightsAnnotationResourceId>
+    <UserSecretsId>821dce45-1959-4a8f-be41-1f0067f4ba63</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.3" />
     <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.0.3" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
   </ItemGroup>
 
