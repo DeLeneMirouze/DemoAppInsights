@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace DemoAppInsights
 {
@@ -35,6 +36,16 @@ namespace DemoAppInsights
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Active la télémétrie Application Insights dans Startup plutôt que Main
+            //services.AddApplicationInsightsTelemetry();
+
+            // installe un processeur de télémétrie dans le pipeline
+            //services.AddApplicationInsightsTelemetryProcessor<MyProcessorFilter>();
+            // si on a d'autres processeurs
+            //services.AddApplicationInsightsTelemetryProcessor<AnotherProcessor>();
+
+
             services.AddSingleton<ITelemetryInitializer>(new MyTelemetryInitializer());
         }
 
