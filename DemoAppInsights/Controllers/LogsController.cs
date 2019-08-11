@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.ApplicationInsights.Metrics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -29,6 +30,13 @@ namespace DemoAppInsights.Controllers
             //_log.Log(LogLevel.Critical, "Critical log depuis ILogger");
 
             return View();
+        }
+
+        public IActionResult CustomMetric()
+        {
+            _telemetry.GetMetric("MyMetric").TrackValue(555);
+
+            return View("Index");
         }
     }
 }
