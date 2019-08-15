@@ -1,16 +1,15 @@
-﻿using System.Diagnostics;
+﻿using DemoAppInsights.Models;
 using Microsoft.AspNetCore.Mvc;
-using DemoAppInsights.Models;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Queue;
-using System.Threading.Tasks;
-using System.Net.Http;
-using Microsoft.Extensions.Options;
-using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
+using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Extensions.Options;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Queue;
 using System;
-using System.Threading;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace DemoAppInsights.Controllers
 {
